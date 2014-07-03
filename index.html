@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no"/>
+  <meta name="apple-mobile-web-app-status-bar" content="black" />
+
+  <title>Gem Warrior</title>
+
+  <link rel="apple-touch-icon" href="images/ios-icon.png" />
+  <link rel="stylesheet" href="styles/main.css"/>
+  <link rel="stylesheet" 
+    href="styles/mobile.css"
+    media="screen and (max-device-width: 768px)
+        and (orientation: portrait),
+      screen and (max-device-width: 1024px)
+        and(orientation: landscape)"/>
+
+  <script src="scripts/jewel.js"></script>
+  <script>
+    window.addEventListener("load", function() {
+      jewel.load("scripts/dom.js");
+      if (jewel.isStandalone()){
+        jewel.load("scripts/screen.splash.js");
+        jewel.load("scripts/screen.main-menu.js", jewel.setup);
+        if (jewel.hasWebWorkers()) {
+            jewel.preload("scripts/board.worker.js");
+            jewel.load("scripts/board.worker-inderface.js",
+            jewel.setup);
+        } else {
+            jewel.load("scripts/board.js", jewel.setup);
+        }
+      } else {
+        jewel.load("scripts/screen.install.js", jewel.setup);
+      }
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="game">
+    <!-- Game goes here -->
+    <div class="screen" id="install-screen">
+      <h1 class="logo">Gem<br/>Warrior</h1>
+      <span>
+        Click bookmarks and select "Add to home screen" to Install.
+      </span>
+    </div>
+    <div class="screen" id="splash-screen">
+      <h1 class="logo">Gem </br>Warrior</h1>
+      <span class="continue">Click to Continue</span>
+    </div>
+    <div class="screen" id="main-menu">
+      <h2 class="logo">Gem<br>Warrior</h2>
+      <ul class="menu">
+        <li><button name="game-screen">Play</button>
+        <li><button name="high-scores">Highscore</button>
+        <li><button name="about">About</button>
+        <li><button name="exit-screen">Exit</button>
+      </ul>
+    </div>
+    <div class="screen" id="game-screen"></div>
+    <div class="screen" id="high-scores"></div>
+  </div>
+</body>
+
+</html>
